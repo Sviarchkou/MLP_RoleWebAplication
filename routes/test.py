@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 
-from app.extensions import db
-from app.models.user import User
+from extensions import db
+from models.role import User
 
 
 test_bp = Blueprint('test_bp', __name__)
