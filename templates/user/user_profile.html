@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Создание пользователя
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='user_info.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 60vh;">
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="card w-100" style="max-width: 600px;">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Профиль</h3>
+
+                <h4 class="text-body">ФИО: {{ user.name }}</h4>
+                <h4 class="text-body">Логин: {{ user.login }}</h4>
+                <h4 class="text-body">Роль: {{ user.role.name }}</h4>
+                <h4 class="text-body">Номер: {{ user.personal_number }}</h4>
+                <h4 class="text-body">Место жительства: {{ user.residency }}</h4>
+                <h4 class="text-body">Телефон: {{ user.phone }}</h4>
+
+                {% if user.role.isAdmin %}
+                <h4 class="text-body">Примечание: Имеет права администратора</h4>
+                {% else %}
+                <h4 class="text-body">Примечание: Не имеет права администратора</h4>
+                {% endif%}
+
+                <div class="mb-3">
+                    <a href="{{ url_for('user_bp.edit_user', id=user.id) }}" class="btn btn-sm btn-outline-dark"
+                       style="display: flex; flex-direction: column; justify-content: center;  margin-top: 50px">
+                        Редактировать
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{{ url_for('user_bp.password_change', id=user.id) }}" class="btn btn-sm btn-warning"
+                       style="display: flex; flex-direction: column; justify-content: center;">
+                        Изменить пароль
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

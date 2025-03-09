@@ -6,10 +6,8 @@
 
 
 {% block body %}
-<div class="container d-flex align-items-center justify-content-center">
-    <h1>Главная страница сайта </h1>
-
-    <table border="1">
+<div class="table-responsive custom-table-responsive">
+    <table class="table custom-table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -17,6 +15,8 @@
                 <th>Residency</th>
                 <th>Phone</th>
                 <th>Role Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +27,16 @@
                 <td>{{ user.residency }}</td>
                 <td>{{ user.phone }}</td>
                 <td>{{ user.role.name }}</td>
+                <td>
+                    <a href="{{ url_for('user_bp.edit_user', id=user.id) }}" class="btn btn-sm btn-warning">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ url_for('user_bp.remove_user', id=user.id) }}" class="btn btn-sm btn-danger">
+                        <span class="fa fa-trash"></span>
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

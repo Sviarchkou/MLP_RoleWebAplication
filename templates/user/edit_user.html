@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Создание пользователя
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='user_info.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 60vh;">
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="card w-100" style="max-width: 600px;">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Изменение студентов</h3>
+                <div class="userInfo">
+                    <form name="createUserForm" method="post" enctype="multipart/form-data"
+                          class="form-control d-flex flex-column gap-2">
+                        {{ form.csrf_token }}
+                        {{ form.name(class="form-control", placeholder="ФИО", value=user.name) }}
+                        {{ form.login(class="form-control", placeholder="Логин", value=user.login) }}
+                        {{ form.role(class="form-control", placeholder="Роль", value=user.role.name) }}
+                        {{ form.personal_number(class="form-control", placeholder="Личный номер",
+                        value=user.personal_number) }}
+                        {{ form.residency(class="form-control", placeholder="Место проживания", value=user.residency) }}
+                        {{ form.phone(class="form-control", placeholder="Номер телефона", value=user.phone) }}
+                        {{ form.submit(class="btn btn-success")}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
