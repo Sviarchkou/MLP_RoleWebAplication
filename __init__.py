@@ -6,6 +6,7 @@ from extensions import db, bcrypt, jwt
 from routes.main import main_bp
 from routes.auth import auth_bp
 from routes.user import user_bp
+from routes.message import message_bp
 
 
 def create_app(config_class=Config):
@@ -15,6 +16,7 @@ def create_app(config_class=Config):
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(user_bp)
+    app.register_blueprint(message_bp)
     # app.register_blueprint(test_bp)
 
     db.init_app(app)

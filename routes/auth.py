@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, jsonify, make_response
+from flask import Blueprint, render_template, request, redirect, jsonify, make_response, url_for
 from flask_jwt_extended import create_access_token, get_jwt_identity, set_access_cookies, jwt_required
-from extensions import bcrypt
+
+import models.user
+from extensions import bcrypt, db
+from models.role import Role
 from models.user import User
 
 
@@ -18,27 +21,26 @@ def authorization():
 def login():
     login = request.json.get('login')
     password = request.json.get('password')
-
-    user = User.query.filter_by(login=login).first()
+    user = db.session.query(User).filter_by(login=login).join(Role).first()
+    # user = User.query.filter_by(login=login).first()
     if user and bcrypt.check_password_hash(user.password, password):
         token = create_access_token(identity=login)
         response = jsonify({'message': 'Logged in'})
         set_access_cookies(response, token)
         return response
     else:
-        return 401
+        return make_response("Wrong data", 401)
 
 
-@auth_bp.route('/logout', methods=['POST', 'GET'])
-def logout():
-    # logout_user()
-    return redirect("/auth")
+@auth_bp.route('/<int:id>/logout', methods=['GET'])
+def logout(id):
+    return redirect(url_for('auth_bp.authorization'))
 
 
 @auth_bp.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():
-    current_user = get_jwt_identity()
+    models.user.current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
 
 

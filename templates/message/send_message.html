@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Отправка сообщений
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='user_info.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 60vh;">
+    <div class="container d-flex align-items-center justify-content-center">
+        <div style="max-width: 600px;">
+
+            <h3 class="card-title text-center mb-4">Отправка сообщения</h3>
+            <div class="userInfo">
+                <form name="SendMessageForm" method="post" enctype="multipart/form-data"
+                      class="form-control d-flex flex-column gap-2">
+                    {{ form.csrf_token }}
+                    {{ form.title(class="form-control", placeholder="Заголовок") }}
+                    {{ form.desc(class="form-control", placeholder="Содержание") }}
+                    {{ form.user(class="form-control", placeholder="Личный номер получателя") }}
+                    {{ form.submit(class="btn btn-success")}}
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

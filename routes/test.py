@@ -13,3 +13,7 @@ def index(name):
     db.session.add(user)
     db.session.commit()
     return render_template("home_page.html")
+
+
+
+

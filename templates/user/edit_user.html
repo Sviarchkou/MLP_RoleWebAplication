@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Создание пользователя
+Редактирование пользователя
 {% endblock %}
 
 {% block style %}
@@ -20,8 +20,14 @@
                           class="form-control d-flex flex-column gap-2">
                         {{ form.csrf_token }}
                         {{ form.name(class="form-control", placeholder="ФИО", value=user.name) }}
-                        {{ form.login(class="form-control", placeholder="Логин", value=user.login) }}
-                        {{ form.role(class="form-control", placeholder="Роль", value=user.role.name) }}
+                        {{ form.login(class="form-control",placeholder="Логин", value=user.login) }}
+
+                        {% if current_user.role.isAdmin %}
+                        {{ form.role(class="form-control", value=user.role.name, placeholder="Роль") }}
+                        {% else %}
+                        {{ form.role(class="form-control", value=user.role.name, readonly=true) }}
+                        {% endif %}
+
                         {{ form.personal_number(class="form-control", placeholder="Личный номер",
                         value=user.personal_number) }}
                         {{ form.residency(class="form-control", placeholder="Место проживания", value=user.residency) }}

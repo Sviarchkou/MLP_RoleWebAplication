@@ -1,4 +1,5 @@
 from extensions import db
+from models.message import Message
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -11,6 +12,8 @@ class User(db.Model):
     personal_number = db.Column(db.String(20), nullable=False)
     residency = db.Column(db.String(50))
     phone = db.Column(db.String(15))
+
+    message = db.relationship(Message, back_populates='user')
 
     def __repr__(self):
         return 'User %r' % self.id
